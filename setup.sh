@@ -14,5 +14,5 @@ if ! [ -e ${UTILS_DIR}/todoist-env ] ; then
 fi
 
 # Link the tmux config
-[ -e ~/.tmux.config ] && mv ~/.tmux.config ~/.tmux.config.old
-ln -s ${UTILS_DIR}/.tmux.conf ~/.tmux.config 
+[ -e ~/.tmux.conf ] && mv ~/.tmux.conf ~/.tmux.conf.old
+ln -s ${UTILS_DIR}/.tmux.conf ~/.tmux.conf
