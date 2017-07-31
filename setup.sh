@@ -16,3 +16,13 @@ fi
 # Link the tmux config
 [ -e ~/.tmux.conf ] && mv ~/.tmux.conf ~/.tmux.conf.old
 ln -s ${UTILS_DIR}/.tmux.conf ~/.tmux.conf
+
+# Append to .bashrc
+if [ ! -e ~/.bashrc ]; then
+    touch ~/.bashrc
+fi
+if [[ "`tail -n1 ~/.bashrc`" != "# !!! SETUP.SH END" ]]; then
+    echo "export UTILS_DIR=${UTILS_DIR}" >> ~/.bashrc
+    cat ${UTILS_DIR}/.bashrc >> ~/.bashrc
+    echo "# !!! SETUP.SH END" >> ~/.bashrc
+fi
