@@ -17,6 +17,10 @@ fi
 [ -e ~/.tmux.conf ] && mv ~/.tmux.conf ~/.tmux.conf.old
 ln -s ${UTILS_DIR}/.tmux.conf ~/.tmux.conf
 
+# Link the vimrc
+[ -e ~/.vimrc ] && mv ~/.vimrc ~/.vimrc.old
+ln -s ${UTILS_DIR}/.vimrc ~/.vimrc
+
 # Append to .bashrc
 if [ ! -e ~/.bashrc ]; then
     touch ~/.bashrc
