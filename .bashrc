@@ -1,7 +1,8 @@
-# UTILS_DIR SHOULD BE INSERTED ABOVE BY setup.sh
-
-# FROM HERE ON THE CONTENTS ARE AUTOMATICALLY APPENDED BY setup.sh FROM
-# UTILS_DIR
+# UTILS_DIR SHOULD BE SET TO THE DIRECTORY CONTAINING THIS FILE
+if [ -z "${UTILS_DIR}" ]; then
+    echo "UTILS_DIR not set: ${UTILS_DIR}" 1>&2
+    return
+fi
 
 ###########
 # ALIASES #
@@ -10,6 +11,7 @@
 alias gitlog="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n'' %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all"
 
 # Utils
+alias did="vim +'normal Go' +'r!date' ${UTILS_DIR}/did.txt"
 alias tailf="tail -f"
 alias tmux="TERM=xterm-256color tmux"
 

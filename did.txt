@@ -1,0 +1,4 @@
+
+
+Mon 16 Jul 10:11:19 BST 2018
+- Added did to my bashrc
