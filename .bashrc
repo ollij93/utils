@@ -5,6 +5,11 @@ if [ -z "${UTILS_DIR}" ]; then
 fi
 
 ###########
+# OPTIONS #
+###########
+shopt -s globstar
+
+###########
 # ALIASES #
 ###########
 # Git
@@ -14,6 +19,22 @@ alias gitlog="git log --graph --abbrev-commit --decorate --format=format:'%C(bol
 alias did="vim +'normal Go' +'r!date' ${UTILS_DIR}/did.txt"
 alias tailf="tail -f"
 alias tmux="TERM=xterm-256color tmux"
+
+#############
+# FUNCTIONS #
+#############
+gup()
+{
+    path=`pwd`
+    while [ ! -d "$path/.git" -a $path != "/" ]; do
+        path=`dirname $path`
+    done
+    if [ $path = "/" ]; then
+        echo "Not in a git workspace"
+    else
+        cd $path
+    fi
+}
 
 ###########
 # EXPORTS #
