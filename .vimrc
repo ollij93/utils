@@ -33,8 +33,6 @@ set backspace=indent,eol,start
 
 set gdefault
 
-set textwidth=79
-
 " Case insensitive search, if search string is all in lowercase
 set ignorecase
 set smartcase
@@ -54,4 +52,3 @@ nnoremap <expr> <cr> &buftype=="" ? ":w<cr>" : "<cr>"
 
 " colors
 colorscheme desert
-set colorcolumn=81
