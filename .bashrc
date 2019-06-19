@@ -7,7 +7,9 @@ fi
 ###########
 # OPTIONS #
 ###########
-shopt -s globstar
+if [ "`bash --version`" == *"version 4"* ]; then
+    shopt -s globstar
+fi
 
 ###########
 # ALIASES #

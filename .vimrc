@@ -15,9 +15,7 @@ set novisualbell
 
 set title
 
-set display+=lastline
-
-" Simple defualt indent, ft indentation will override this most of the time
+" Simple default indent, ft indentation will override this most of the time
 set autoindent
 
 " Nuke tabs from orbit, replace with 4 spaces
@@ -33,7 +31,8 @@ set backspace=indent,eol,start
 
 set gdefault
 
-set textwidth=79
+"Map shift-tab to inverse tab
+inoremap <S-Tab> <C-d>
 
 " Case insensitive search, if search string is all in lowercase
 set ignorecase
@@ -54,4 +53,3 @@ nnoremap <expr> <cr> &buftype=="" ? ":w<cr>" : "<cr>"
 
 " colors
 colorscheme desert
-set colorcolumn=81
