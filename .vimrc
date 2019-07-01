@@ -15,9 +15,7 @@ set novisualbell
 
 set title
 
-set display+=lastline
-
-" Simple defualt indent, ft indentation will override this most of the time
+" Simple default indent, ft indentation will override this most of the time
 set autoindent
 
 " Nuke tabs from orbit, replace with 4 spaces
@@ -32,6 +30,9 @@ set laststatus=2
 set backspace=indent,eol,start
 
 set gdefault
+
+"Map shift-tab to inverse tab
+inoremap <S-Tab> <C-d>
 
 " Case insensitive search, if search string is all in lowercase
 set ignorecase
