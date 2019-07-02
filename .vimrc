@@ -40,7 +40,11 @@ set smartcase
 
 set incsearch
 
-
+" Tab navigation
+map <C-t><up> :tabr<cr>
+map <C-t><down> :tabl<cr>
+map <C-t><left> :tabp<cr>
+map <C-t><right> :tabn<cr>
 
 " Allow repeated shifting in visual mode
 vnoremap < <gv
@@ -82,6 +86,9 @@ set noshowmode
 " NERDTree
 Plug 'scrooloose/nerdtree'
 map <C-o> :NERDTreeToggle<CR>
+
+" Git
+Plug 'tpope/vim-fugitive'
 
 " Clang autocomplete
 Plug 'Rip-Rip/clang_complete'
