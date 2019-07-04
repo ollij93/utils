@@ -87,8 +87,25 @@ map <C-o> :NERDTreeToggle<CR>
 Plug 'Rip-Rip/clang_complete'
 let g:clang_library_path='/usr/lib/llvm-6.0/lib/libclang.so.1'
 
+" Bazel
+Plug 'google/vim-maktaba'
+Plug 'bazelbuild/vim-bazel'
+
 call plug#end()
 "
 " End of plugin loads
 " "
 
+" Clang-format
+if empty(glob('~/.vim/clang-format.py'))
+  silent !curl -fLo ~/.vim/clang-format.py --create-dirs
+    \ https://llvm.org/svn/llvm-project/cfe/trunk/tools/clang-format/clang-format.py
+endif
+function! Formatonsave()
+  let l:formatdiff = 1
+  py3f ~/.vim/clang-format.py
+endfunction
+autocmd BufWritePre *.h,*.cc,*.cpp call Formatonsave()
+
+map <C-K> :py3f ~/.vim/clang-format.py<cr>
+imap <C-K> <c-o>:py3f ~/.vim/clang-format.py<cr>
