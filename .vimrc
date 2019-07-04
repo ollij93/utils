@@ -94,6 +94,13 @@ Plug 'tpope/vim-fugitive'
 Plug 'Rip-Rip/clang_complete'
 let g:clang_library_path='/usr/lib/llvm-6.0/lib/libclang.so.1'
 
+" Syntax highlighting
+Plug 'vim-syntastic/syntastic'
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 call plug#end()
 "
 " End of plugin loads
