@@ -71,6 +71,9 @@ export PATH="$PATH:${UTILS_DIR}"
 # Timezone
 export TZ="/usr/share/zoneinfo/GB"
 
+# Terminal
+export TERM=xterm-256color
+
 # Prompt
 prompt_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'

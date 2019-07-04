@@ -101,8 +101,25 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+" Bazel
+Plug 'google/vim-maktaba'
+Plug 'bazelbuild/vim-bazel'
+
 call plug#end()
 "
 " End of plugin loads
 " "
 
+" Clang-format
+if empty(glob('~/.vim/clang-format.py'))
+  silent !curl -fLo ~/.vim/clang-format.py --create-dirs
+    \ https://llvm.org/svn/llvm-project/cfe/trunk/tools/clang-format/clang-format.py
+endif
+function! Formatonsave()
+  let l:formatdiff = 1
+  py3f ~/.vim/clang-format.py
+endfunction
+autocmd BufWritePre *.h,*.cc,*.cpp call Formatonsave()
+
+map <C-K> :py3f ~/.vim/clang-format.py<cr>
+imap <C-K> <c-o>:py3f ~/.vim/clang-format.py<cr>
