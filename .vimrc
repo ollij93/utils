@@ -91,8 +91,9 @@ map <C-o> :NERDTreeToggle<CR>
 Plug 'tpope/vim-fugitive'
 
 " Clang autocomplete
-Plug 'Rip-Rip/clang_complete'
-let g:clang_library_path='/usr/lib/llvm-6.0/lib/libclang.so.1'
+" Plug 'Rip-Rip/clang_complete'
+" let g:clang_library_path='/usr/lib/llvm-6.0/lib/libclang.so.1'
+Plug 'ycm-core/YouCompleteMe'
 
 " Switching between source and header file
 Plug 'vim-scripts/a.vim'
