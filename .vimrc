@@ -94,6 +94,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'Rip-Rip/clang_complete'
 let g:clang_library_path='/usr/lib/llvm-6.0/lib/libclang.so.1'
 
+" Switching between source and header file
+Plug 'vim-scripts/a.vim'
+
 " Syntax highlighting
 Plug 'vim-syntastic/syntastic'
 let g:syntastic_always_populate_loc_list = 1
