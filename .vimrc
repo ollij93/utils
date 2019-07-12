@@ -31,9 +31,6 @@ set backspace=indent,eol,start
 
 set gdefault
 
-"Map shift-tab to inverse tab
-inoremap <S-Tab> <C-d>
-
 " Case insensitive search, if search string is all in lowercase
 set ignorecase
 set smartcase
@@ -104,6 +101,11 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_python_python_exec = 'python3'
+let g:syntastic_python_pylint_exec = 'python3 -m pylint'
+
+" Python bits
+Plug 'python/black'
 
 " Bazel
 Plug 'google/vim-maktaba'
@@ -127,3 +129,11 @@ autocmd BufWritePre *.h,*.cc,*.cpp call Formatonsave()
 
 map <C-K> :py3f ~/.vim/clang-format.py<cr>
 imap <C-K> <c-o>:py3f ~/.vim/clang-format.py<cr>
+
+" Map shift-tab to inverse tab
+imap <S-Tab> <C-d>
+
+" Set python locations - Machine dependent!
+set pythonthreehome=/auto/ensoft/thirdparty/
+set pythonthreedll=/auto/ensoft/thirdparty/lib/libpython3.so
+
