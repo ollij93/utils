@@ -90,13 +90,13 @@ Plug 'tpope/vim-fugitive'
 " Clang autocomplete
 " Plug 'Rip-Rip/clang_complete'
 " let g:clang_library_path='/usr/lib/llvm-6.0/lib/libclang.so.1'
-Plug 'ycm-core/YouCompleteMe'
+" Plug 'ycm-core/YouCompleteMe'
 
 " Switching between source and header file
 Plug 'vim-scripts/a.vim'
 
 " Syntax highlighting
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -105,7 +105,7 @@ let g:syntastic_python_python_exec = 'python3'
 let g:syntastic_sh_shellcheck_args = "-e SC2039 -e SC1090"
 
 " Python bits
-Plug 'python/black'
+" Plug 'python/black'
 
 " Bazel
 Plug 'google/vim-maktaba'
