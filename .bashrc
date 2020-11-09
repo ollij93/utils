@@ -69,7 +69,8 @@ export VISUAL=$editor
 export PATH="$PATH:${UTILS_DIR}"
 
 # Timezone
-export TZ="/usr/share/zoneinfo/GB"
+# export TZ="/usr/share/zoneinfo/GB"
+unset TZ
 
 # Terminal
 export TERM=xterm-256color
@@ -79,4 +80,9 @@ prompt_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 export PS1="\[\033]0;\u@\h\007\][\[$BOLD$ORANGE\]\u\[$RESET\]@\[$BOLD$ORANGE\]\h\[$RESET\] \[$BOLD$GRAY\]\W\[$RESET\]\[$CYAN\]\$(prompt_git_branch)\[$RESET\]]\$ "
+
+###########################
+# SOURCE ADDITIONAL UTILS #
+###########################
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
