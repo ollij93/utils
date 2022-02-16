@@ -134,6 +134,8 @@ imap <C-K> <c-o>:py3f ~/.vim/clang-format.py<cr>
 imap <S-Tab> <C-d>
 
 " Set python locations - Machine dependent!
-set pythonthreehome=/auto/ensoft/thirdparty/
-set pythonthreedll=/auto/ensoft/thirdparty/lib/libpython3.so
+" set pythonthreehome=/auto/ensoft/thirdparty/
+" set pythonthreedll=/auto/ensoft/thirdparty/lib/libpython3.so
 
+" Set gq to wrap to the stupid ensoft standard line length
+set textwidth=79
