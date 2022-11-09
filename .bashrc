@@ -24,6 +24,15 @@ alias tmux="TERM=xterm-256color tmux"
 #############
 # FUNCTIONS #
 #############
+active_git_branch() {
+    git rev-parse --abbrev-ref HEAD 2>/dev/null
+}
+
+gitsu() {
+    brnch=$(active_git_branch)
+    git branch --set-upstream-to=origin/${brnch} ${brnch}
+}
+
 gup()
 {
     path=`pwd`
@@ -76,7 +85,7 @@ export TERM=xterm-256color
 
 # Prompt
 export VIRTUAL_ENV_DISABLE_PROMPT=1
-prompt_venv() {
+active_venv() {
     # Get Virtual Env
     if [[ -n "$VIRTUAL_ENV" ]]; then
         # Strip out the path and just leave the env name
@@ -87,10 +96,7 @@ prompt_venv() {
     fi
     [[ -n "$venv" ]] && echo "($venv)"
 }
-prompt_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
-}
-export PS1="\[\033]0;\u@\h\007\]\[$BOLD$ORANGE\]\u\[$RESET\]@\[$BOLD$ORANGE\]\h\[$RESET\]:\[$BOLD$GRAY\]\W\[$RESET\]\[$CYAN\]\$(prompt_git_branch)\[$RESET\]\n>\$(prompt_venv)\$ "
+export PS1="\[\033]0;\u@\h\007\]\[$BOLD$ORANGE\]\u\[$RESET\]@\[$BOLD$ORANGE\]\h\[$RESET\]:\[$BOLD$GRAY\]\W\[$RESET\]\[$CYAN\](\$(active_git_branch))\[$RESET\]\n>\$(active_venv)\$ "
 
 ###########################
 # SOURCE ADDITIONAL UTILS #
