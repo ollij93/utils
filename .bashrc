@@ -33,19 +33,6 @@ gitsu() {
     git branch --set-upstream-to=origin/${brnch} ${brnch}
 }
 
-gup()
-{
-    path=`pwd`
-    while [ ! -d "$path/.git" -a $path != "/" ]; do
-        path=`dirname $path`
-    done
-    if [ $path = "/" ]; then
-        echo "Not in a git workspace"
-    else
-        cd $path
-    fi
-}
-
 ###########
 # EXPORTS #
 ###########

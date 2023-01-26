@@ -1,0 +1,6 @@
+# Ignore the fzf plugins files
+fzf_*
+fzf.*
+_fzf_*
+# Ignore the fisher commands
+fisher.fish
