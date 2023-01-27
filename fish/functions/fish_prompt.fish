@@ -1,10 +1,72 @@
+function show_powerline_symbols
+    # Just useful for customisation
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+    echo 
+end
+
+function fish_right_prompt
+    set -l retc red
+    test $status = 0; and set retc green
+
+    set_color $retc
+    echo ""
+    set_color normal
+
+    set_color -b $retc
+    set_color white
+    echo -n " "
+    echo -n (humantime $CMD_DURATION)
+    echo -n " "
+    echo -n "[$status]"
+    echo -n " "
+    set_color normal
+end
+
 function fish_prompt
     set -l retc red
     test $status = 0; and set retc green
 
+    # Setup some non-standard colors I like
     set -l orange FF8700
     set -l grey 444444
     set -l dgrey 222222
+
     # Prompt wrapper to draw the different sections
     set -e prevcolor
     function _prompt_wrapper
@@ -171,8 +233,7 @@ function fish_prompt
 
 
     set_color normal
-    echo -n '>'
-    set_color -o $retc
+    echo -n ' '
     echo -n '$ '
     set_color normal
 end

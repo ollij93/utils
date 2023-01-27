@@ -2,5 +2,6 @@
 fzf_*
 fzf.*
 _fzf_*
-# Ignore the fisher commands
+# Ignore command from installed plugins
 fisher.fish
+humantime.fish
