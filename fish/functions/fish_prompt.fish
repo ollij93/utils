@@ -2,74 +2,144 @@ function fish_prompt
     set -l retc red
     test $status = 0; and set retc green
 
+    set -l orange FF8700
+    set -l grey 444444
+    set -l dgrey 222222
+    # Prompt wrapper to draw the different sections
+    set -e prevcolor
     function _prompt_wrapper
         set -l color $argv[1]
-        set -l field_value $argv[2]
+        set -l textcolor $argv[2]
+        set -l fieldvalue $argv[3]
 
-        set_color -o $color
-        echo -n '('
+        if test $prevcolor
+            set_color -b $color
+            set_color $prevcolor
+            echo -n ""
+            set_color normal
+        end
+
+        set_color -b $color
+        set_color $textcolor
+        echo -n " "
+        echo -n $fieldvalue
+        echo -n " "
         set_color normal
-        echo -n $field_value
-        set_color -o $color
-        echo -n ')'
+
+        set -g prevcolor $color
     end
 
+    # Draw the login details
+    set -l userlocal_color $orange
     if functions -q fish_is_root_user; and fish_is_root_user
-        set_color -o red
-    else
-        set_color -o FFAA33
+        set -l userlocal_color red
     end
-    echo -n $USER
 
-
-    set_color -o white
-    echo -n @
-    set_color -o FFAA33
-    if test -z "$SSH_CLIENT"
-        echo -n "local"
-    else
-        echo -n (prompt_hostname)
+    # Want uncolored prompt_login with custom value for the local case
+    function _prompt_login
+        if test -z "$SSH_CLIENT"
+            echo -n "$USER@local"
+        else
+            echo -n "$USER@"
+            echo -n (prompt_hostname)
+        end
     end
-    set_color normal
+    _prompt_wrapper $userlocal_color black (_prompt_login)
 
-    set_color white
-    echo -n :(prompt_pwd)
+    # Battery status
+    if type -q acpi
+        test (acpi -a 2> /dev/null | string match -r off)
+        and _prompt_wrapper $drey yellow (acpi -b | cut -d' ' -f 4-)
+    else if type -q pmset
+        # TODO - change color based on percentage
+        _prompt_wrapper $dgrey green (pmset -g batt | awk 'NR==2 { gsub(";", "", $3) ; print $3 }')
+    end
 
-    # git
+    # CWD
+    _prompt_wrapper cyan black (prompt_pwd)
+
+    ########################################################
+    # git - set lots of config and avoid reseting the color
+    # to normal by overriding the setting function
     set -g __fish_git_prompt_show_informative_status 1
     set -g __fish_git_prompt_hide_untrackedfiles 1
 
-    set -g __fish_git_prompt_color_branch cyan
     set -g __fish_git_prompt_showupstream "informative"
     set -g __fish_git_prompt_char_upstream_ahead "↑"
     set -g __fish_git_prompt_char_upstream_behind "↓"
     set -g __fish_git_prompt_char_upstream_prefix ""
-
     set -g __fish_git_prompt_char_stagedstate "●"
     set -g __fish_git_prompt_char_dirtystate "✚"
     set -g __fish_git_prompt_char_untrackedfiles "…"
     set -g __fish_git_prompt_char_conflictedstate "✖"
     set -g __fish_git_prompt_char_cleanstate "✔"
 
-    set -g __fish_git_prompt_color_dirtystate blue
-    set -g __fish_git_prompt_color_stagedstate yellow
-    set -g __fish_git_prompt_color_invalidstate red
-    set -g __fish_git_prompt_color_untrackedfiles normal
-    set -g __fish_git_prompt_color_cleanstate green
+    function _sgc
+        set -l varname $argv[1]
+        set -l color $argv[2]
+
+        set -g $varname $color
+        set -g {$varname}_done $color
+    end
+
+    function __fish_git_prompt_set_color
+        set -l user_variable_name "$argv[1]"
+
+        set -l default default_done
+        switch (count $argv)
+            case 1 # No defaults given, use prompt color
+                set default $___fish_git_prompt_color
+                set default_done $___fish_git_prompt_color_done
+            case 2 # One default given, use normal for done
+                set default "$argv[2]"
+                set default_done (set_color normal)
+            case 3 # Both defaults given
+                set default "$argv[2]"
+                set default_done "$argv[3]"
+        end
+
+        set -l variable _$user_variable_name
+        set -l variable_done "$variable"_done
+
+        if not set -q $variable
+            if test -n "$$user_variable_name"
+                set -g $variable (set_color $$user_variable_name)
+                # set -g $variable_done (set_color normal)
+            else
+                set -g $variable $default
+                set -g $variable_done $default_done
+            end
+        end
+    end
+
+    _sgc __fish_git_prompt_color white
+    _sgc __fish_git_prompt_color_prefix white
+    _sgc __fish_git_prompt_color_suffix white
+    _sgc __fish_git_prompt_color_bare white
+    _sgc __fish_git_prompt_color_merging white
+    _sgc __fish_git_prompt_color_cleanstate green
+    _sgc __fish_git_prompt_color_invalidstate red
+    _sgc __fish_git_prompt_color_upstream white
+    _sgc __fish_git_prompt_color_flags white
+    _sgc __fish_git_prompt_color_branch white
+    _sgc __fish_git_prompt_color_dirtystate blue
+    _sgc __fish_git_prompt_color_stagedstate yellow
+    _sgc __fish_git_prompt_color_stashstate white
+    _sgc __fish_git_prompt_color_untrackedfiles white
     set -l prompt_git (fish_git_prompt '%s')
     test -n "$prompt_git"
-    and _prompt_wrapper cyan $prompt_git
+    and _prompt_wrapper $grey $grey $prompt_git
+    #
+    ########################################################
 
     # Virtual Environment
     set -q VIRTUAL_ENV_DISABLE_PROMPT
     or set -g VIRTUAL_ENV_DISABLE_PROMPT true
     set -q VIRTUAL_ENV
-    and _prompt_wrapper green (basename "$VIRTUAL_ENV")
+    and _prompt_wrapper green black (basename "$VIRTUAL_ENV")
 
-    # Battery status
-    type -q acpi
-    and test (acpi -a 2> /dev/null | string match -r off)
-    and _prompt_wrapper yellow (acpi -b | cut -d' ' -f 4-)
+    # Put a cap on the prompt
+    _prompt_wrapper normal normal ""
 
     # New line
     echo
