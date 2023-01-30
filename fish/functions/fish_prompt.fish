@@ -45,7 +45,7 @@ function fish_right_prompt
     test $status = 0; and set retc green
 
     set_color $retc
-    echo ""
+    echo ""
     set_color normal
 
     set_color -b $retc
@@ -77,7 +77,7 @@ function fish_prompt
         if test $prevcolor
             set_color -b $color
             set_color $prevcolor
-            echo -n ""
+            echo -n " "
             set_color normal
         end
 
