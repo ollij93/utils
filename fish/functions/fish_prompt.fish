@@ -63,9 +63,26 @@ function fish_prompt
     test $status = 0; and set retc green
 
     # Setup some non-standard colors I like
-    set -l orange FF8700
-    set -l grey 444444
-    set -l dgrey 222222
+    set -g orange FF8700
+    set -g grey 444444
+    set -g dgrey 222222
+    set -g dred 440000
+
+    set -g _sep ""
+    set -g _battery_color $dgrey
+    set -g _userlocal_color $orange
+    set -g _cwd_color cyan
+    set -g _git_color $grey
+    set -g _venv_color green
+
+    if string match -q -- "*fire*" $PWD
+        set -g _sep " "
+        set -g _battery_color $dgrey
+        set -g _userlocal_color yellow
+        set -g _cwd_color $orange
+        set -g _git_color red
+        set -g _venv_color $dred
+    end
 
     # Prompt wrapper to draw the different sections
     set -e prevcolor
@@ -77,7 +94,7 @@ function fish_prompt
         if test $prevcolor
             set_color -b $color
             set_color $prevcolor
-            echo -n " "
+            echo -n $_sep
             set_color normal
         end
 
@@ -91,8 +108,17 @@ function fish_prompt
         set -g prevcolor $color
     end
 
+    # Battery status
+    if type -q acpi
+        test (acpi -a 2> /dev/null | string match -r off)
+        and _prompt_wrapper $_battery_color yellow (acpi -b | cut -d' ' -f 4-)
+    else if type -q pmset
+        # TODO - change color based on percentage
+        _prompt_wrapper $_battery_color green (pmset -g batt | awk 'NR==2 { gsub(";", "", $3) ; print $3 }')
+    end
+
     # Draw the login details
-    set -l userlocal_color $orange
+    set -l userlocal_color $_userlocal_color
     if functions -q fish_is_root_user; and fish_is_root_user
         set -l userlocal_color red
     end
@@ -108,17 +134,8 @@ function fish_prompt
     end
     _prompt_wrapper $userlocal_color black (_prompt_login)
 
-    # Battery status
-    if type -q acpi
-        test (acpi -a 2> /dev/null | string match -r off)
-        and _prompt_wrapper $drey yellow (acpi -b | cut -d' ' -f 4-)
-    else if type -q pmset
-        # TODO - change color based on percentage
-        _prompt_wrapper $dgrey green (pmset -g batt | awk 'NR==2 { gsub(";", "", $3) ; print $3 }')
-    end
-
     # CWD
-    _prompt_wrapper cyan black (prompt_pwd)
+    _prompt_wrapper $_cwd_color black (prompt_pwd)
 
     ########################################################
     # git - set lots of config and avoid reseting the color
@@ -190,7 +207,7 @@ function fish_prompt
     _sgc __fish_git_prompt_color_untrackedfiles white
     set -l prompt_git (fish_git_prompt '%s')
     test -n "$prompt_git"
-    and _prompt_wrapper $grey $grey $prompt_git
+    and _prompt_wrapper $_git_color $_git_color $prompt_git
     #
     ########################################################
 
@@ -198,7 +215,7 @@ function fish_prompt
     set -q VIRTUAL_ENV_DISABLE_PROMPT
     or set -g VIRTUAL_ENV_DISABLE_PROMPT true
     set -q VIRTUAL_ENV
-    and _prompt_wrapper green black (basename "$VIRTUAL_ENV")
+    and _prompt_wrapper $_venv_color black (basename "$VIRTUAL_ENV")
 
     # Put a cap on the prompt
     _prompt_wrapper normal normal ""
