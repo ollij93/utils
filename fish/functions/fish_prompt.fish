@@ -222,6 +222,7 @@ function fish_prompt
 
     # New line
     echo
+    set -e prevcolor
 
     # Vi-mode
     # The default mode prompt would be prefixed, which ruins our alignment.
@@ -230,27 +231,34 @@ function fish_prompt
 
     if test "$fish_key_bindings" = fish_vi_key_bindings
         or test "$fish_key_bindings" = fish_hybrid_key_bindings
+        set -l _vi_color
         set -l mode
         switch $fish_bind_mode
             case default
-                set mode (set_color --bold red)N
+                set mode N
+                set _vi_color red
             case insert
-                set mode (set_color --bold green)I
+                set mode I
+                set _vi_color green
             case replace_one
-                set mode (set_color --bold green)R
-                echo '[R]'
+                set mode R
+                # echo '[R]'
+                set _vi_color green
             case replace
-                set mode (set_color --bold cyan)R
+                set mode R
+                set _vi_color cyan
             case visual
-                set mode (set_color --bold magenta)V
+                set mode V
+                set _vi_color magenta
         end
-        set mode $mode(set_color normal)
-        _prompt_wrapper red $mode
+        _prompt_wrapper $_vi_color white $mode
     end
+
+    # Put a cap on the second line
+    _prompt_wrapper normal normal ""
 
 
     set_color normal
-    echo -n ' '
     echo -n '$ '
     set_color normal
 end
