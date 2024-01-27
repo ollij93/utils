@@ -205,7 +205,8 @@ function fish_prompt
     _sgc __fish_git_prompt_color_stagedstate yellow
     _sgc __fish_git_prompt_color_stashstate white
     _sgc __fish_git_prompt_color_untrackedfiles white
-    set -l prompt_git (fish_git_prompt '%s')
+    set -g __fish_git_prompt_shorten_branch_len 40
+    set -g prompt_git (fish_git_prompt '%s')
     test -n "$prompt_git"
     and _prompt_wrapper $_git_color $_git_color $prompt_git
     #
@@ -222,7 +223,6 @@ function fish_prompt
 
     # New line
     echo
-    set -e prevcolor
 
     # Vi-mode
     # The default mode prompt would be prefixed, which ruins our alignment.
@@ -231,34 +231,27 @@ function fish_prompt
 
     if test "$fish_key_bindings" = fish_vi_key_bindings
         or test "$fish_key_bindings" = fish_hybrid_key_bindings
-        set -l _vi_color
         set -l mode
         switch $fish_bind_mode
             case default
-                set mode N
-                set _vi_color red
+                set mode (set_color --bold red)N
             case insert
-                set mode I
-                set _vi_color green
+                set mode (set_color --bold green)I
             case replace_one
-                set mode R
-                # echo '[R]'
-                set _vi_color green
+                set mode (set_color --bold green)R
+                echo '[R]'
             case replace
-                set mode R
-                set _vi_color cyan
+                set mode (set_color --bold cyan)R
             case visual
-                set mode V
-                set _vi_color magenta
+                set mode (set_color --bold magenta)V
         end
-        _prompt_wrapper $_vi_color white $mode
+        set mode $mode(set_color normal)
+        _prompt_wrapper red $mode
     end
-
-    # Put a cap on the second line
-    _prompt_wrapper normal normal ""
 
 
     set_color normal
+    echo -n ' '
     echo -n '$ '
     set_color normal
 end
