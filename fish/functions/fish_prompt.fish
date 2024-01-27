@@ -64,22 +64,30 @@ function fish_prompt
 
     # Setup some non-standard colors I like
     set -g orange FF8700
+    set -g lime100 75FF20
+    set -g lime80 9EFF62
+    set -g lime60 BEFF96
     set -g grey 444444
     set -g dgrey 222222
     set -g dred 440000
 
     set -g _sep ""
     set -g _battery_color $dgrey
-    set -g _userlocal_color $orange
-    set -g _cwd_color cyan
+    set -g _userlocal_color_bg black
+    set -g _userlocal_color_fg $lime100
+    set -g _cwd_color_bg $lime100
+    set -g _cwd_color_fg black
     set -g _git_color $grey
     set -g _venv_color green
+    set -g _ws_state_color $dgrey
 
     if string match -q -- "*fire*" $PWD
         set -g _sep " "
         set -g _battery_color $dgrey
-        set -g _userlocal_color yellow
-        set -g _cwd_color $orange
+        set -g _userlocal_color_bg yellow
+        set -g _userlocal_color_fg black
+        set -g _cwd_color_bg $orange
+        set -q _cwd_color_fg black
         set -g _git_color red
         set -g _venv_color $dred
     end
@@ -118,9 +126,11 @@ function fish_prompt
     end
 
     # Draw the login details
-    set -l userlocal_color $_userlocal_color
+    set -l userlocal_color_bg $_userlocal_color_bg
+    set -l userlocal_color_fg $_userlocal_color_fg
     if functions -q fish_is_root_user; and fish_is_root_user
-        set -l userlocal_color red
+        set -l userlocal_color_bg red
+        set -l userlocal_color_fg black
     end
 
     # Want uncolored prompt_login with custom value for the local case
@@ -132,10 +142,10 @@ function fish_prompt
             echo -n (prompt_hostname)
         end
     end
-    _prompt_wrapper $userlocal_color black (_prompt_login)
+    _prompt_wrapper $userlocal_color_bg $userlocal_color_fg (_prompt_login)
 
     # CWD
-    _prompt_wrapper $_cwd_color black (prompt_pwd)
+    _prompt_wrapper $_cwd_color_bg $_cwd_color_fg (prompt_pwd)
 
     ########################################################
     # git - set lots of config and avoid reseting the color
@@ -217,6 +227,14 @@ function fish_prompt
     or set -g VIRTUAL_ENV_DISABLE_PROMPT true
     set -q VIRTUAL_ENV
     and _prompt_wrapper $_venv_color black (basename "$VIRTUAL_ENV")
+
+    # Workspace state
+    if type -q ws_state
+        set -l WS_STATE (ws_state)
+        if test -n "$WS_STATE"
+            _prompt_wrapper $_ws_state_color black (ws_state)
+        end
+    end
 
     # Put a cap on the prompt
     _prompt_wrapper normal normal ""
