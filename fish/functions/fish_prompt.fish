@@ -73,9 +73,9 @@ function fish_prompt
 
     set -g _sep ""
     set -g _battery_color $dgrey
-    set -g _userlocal_color_bg black
-    set -g _userlocal_color_fg $lime100
-    set -g _cwd_color_bg $lime100
+    set -g _userlocal_color_bg $orange
+    set -g _userlocal_color_fg black
+    set -g _cwd_color_bg cyan
     set -g _cwd_color_fg black
     set -g _git_color $grey
     set -g _venv_color green
@@ -142,10 +142,12 @@ function fish_prompt
             echo -n (prompt_hostname)
         end
     end
-    _prompt_wrapper $userlocal_color_bg $userlocal_color_fg (_prompt_login)
+    set -l login (_prompt_login)
+    _prompt_wrapper $userlocal_color_bg $userlocal_color_fg "$login"
 
     # CWD
-    _prompt_wrapper $_cwd_color_bg $_cwd_color_fg (prompt_pwd)
+    set -l cwd (prompt_pwd)
+    _prompt_wrapper $_cwd_color_bg $_cwd_color_fg "$cwd"
 
     ########################################################
     # git - set lots of config and avoid reseting the color
@@ -218,7 +220,7 @@ function fish_prompt
     set -g __fish_git_prompt_shorten_branch_len 40
     set -g prompt_git (fish_git_prompt '%s')
     test -n "$prompt_git"
-    and _prompt_wrapper $_git_color $_git_color $prompt_git
+    and _prompt_wrapper $_git_color $_git_color "$prompt_git"
     #
     ########################################################
 
