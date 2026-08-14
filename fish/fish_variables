@@ -45,4 +45,4 @@ SETUVAR fish_pager_color_selected_background:\x2d\x2dbackground\x3dE6B450
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
-SETUVAR fish_user_paths:/opt/homebrew/opt/llvm/bin\x1e/Users/olijohns/\x2ecargo/bin\x1e/ws/olijohns\x2dsjc/bin\x1e/ws/olijohns\x2dsjc/local/bin\x1e/usr/cisco/bin\x1e/users/olijohns/.local/bin
+SETUVAR fish_user_paths:/opt/homebrew/bin\x1e/opt/homebrew/opt/llvm/bin\x1e/Users/olijohns/\x2ecargo/bin\x1e/ws/olijohns\x2dsjc/bin\x1e/ws/olijohns\x2dsjc/local/bin\x1e/usr/cisco/bin\x1e/users/olijohns/\x2elocal/bin
