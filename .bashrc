@@ -56,7 +56,7 @@ export CYAN="\e[38;5;6m"
 # export WHITE="\e[37m"
 
 # Editor
-editor=vim
+editor=nvim
 export EDITOR=$editor
 export VISUAL=$editor
 

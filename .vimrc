@@ -53,11 +53,11 @@ vnoremap <Right> >gv
 nnoremap <expr> <cr> &buftype=="" ? ":w<cr>" : "<cr>"
 
 " Darcula Color Scheme
-if empty(glob('~/.vim/colors/darcula.vim'))
-  silent !curl -fLo ~/.vim/colors/darcula.vim --create-dirs
-    \ https://raw.githubusercontent.com/blueshirts/darcula/master/colors/darcula.vim
-endif
-color darcula
+" if empty(glob('~/.vim/colors/darcula.vim'))
+"   silent !curl -fLo ~/.vim/colors/darcula.vim --create-dirs
+"     \ https://raw.githubusercontent.com/blueshirts/darcula/master/colors/darcula.vim
+" endif
+" color darcula
 
 " Plugin manager
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -84,58 +84,12 @@ set noshowmode
 Plug 'scrooloose/nerdtree'
 map <C-o> :NERDTreeToggle<CR>
 
-" Git
-Plug 'tpope/vim-fugitive'
-
-" Clang autocomplete
-" Plug 'Rip-Rip/clang_complete'
-" let g:clang_library_path='/usr/lib/llvm-6.0/lib/libclang.so.1'
-" Plug 'ycm-core/YouCompleteMe'
-
-" Switching between source and header file
-Plug 'vim-scripts/a.vim'
-
-" Syntax highlighting
-" Plug 'vim-syntastic/syntastic'
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_python_python_exec = 'python3'
-let g:syntastic_sh_shellcheck_args = "-e SC2039 -e SC1090"
-
-" Python bits
-" Plug 'python/black'
-
-" Bazel
-Plug 'google/vim-maktaba'
-Plug 'bazelbuild/vim-bazel'
-
-call plug#end()
 "
 " End of plugin loads
 " "
 
-" Clang-format
-if empty(glob('~/.vim/clang-format.py'))
-  silent !curl -fLo ~/.vim/clang-format.py --create-dirs
-    \ https://llvm.org/svn/llvm-project/cfe/trunk/tools/clang-format/clang-format.py
-endif
-function! Formatonsave()
-  let l:formatdiff = 1
-  py3f ~/.vim/clang-format.py
-endfunction
-autocmd BufWritePre *.h,*.cc,*.cpp call Formatonsave()
-
-map <C-K> :py3f ~/.vim/clang-format.py<cr>
-imap <C-K> <c-o>:py3f ~/.vim/clang-format.py<cr>
-
 " Map shift-tab to inverse tab
 imap <S-Tab> <C-d>
-
-" Set python locations - Machine dependent!
-" set pythonthreehome=/auto/ensoft/thirdparty/
-" set pythonthreedll=/auto/ensoft/thirdparty/lib/libpython3.so
 
 " Set gq to wrap to the stupid ensoft standard line length
 set textwidth=79

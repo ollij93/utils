@@ -41,21 +41,21 @@ function show_powerline_symbols
 end
 
 function fish_right_prompt
-    set -l retc red
-    test $status = 0; and set retc green
-
-    set_color $retc
-    echo ""
-    set_color normal
-
-    set_color -b $retc
-    set_color white
-    echo -n " "
-    echo -n (humantime $CMD_DURATION)
-    echo -n " "
-    echo -n "[$status]"
-    echo -n " "
-    set_color normal
+#     set -l retc red
+#     test $status = 0; and set retc green
+# 
+#     set_color $retc
+#     echo ""
+#     set_color normal
+# 
+#     set_color -b $retc
+#     set_color white
+#     echo -n " "
+#     echo -n (humantime $CMD_DURATION)
+#     echo -n " "
+#     echo -n "[$status]"
+#     echo -n " "
+#     set_color normal
 end
 
 function fish_prompt
