@@ -1,7 +1,6 @@
-# UTILS_DIR SHOULD BE SET TO THE DIRECTORY CONTAINING THIS FILE
-if [ -z "${UTILS_DIR}" ]; then
-    echo "UTILS_DIR not set: ${UTILS_DIR}" 1>&2
-    return
+# Include local settings
+if [ -e ~/.bashrc.local ]; then
+    source ~/.bashrc.local
 fi
 
 ###########
@@ -60,9 +59,6 @@ editor=nvim
 export EDITOR=$editor
 export VISUAL=$editor
 
-# Path
-export PATH="$PATH:${UTILS_DIR}"
-
 # Timezone
 # export TZ="/usr/share/zoneinfo/GB"
 unset TZ
@@ -90,3 +86,4 @@ export PS1="\[\033]0;\u@\h\007\]\[$BOLD$ORANGE\]\u\[$RESET\]@\[$BOLD$ORANGE\]\h\
 ###########################
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+command -v starship >/dev/null && eval -- "$(starship init bash --print-full-init)"
