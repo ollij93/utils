@@ -7,7 +7,8 @@ vim.cmd("set shiftwidth=4")
 -- Display line numbers
 vim.cmd("set number")
 
--- 
+-- Set leader to SPACE
+vim.g.mapleader = " "
 
 -- LAZY VIM INITIALIZATION
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -72,7 +73,23 @@ end, {
     desc = "Clear current search",
 })
 
--- Setup telescope bindings
+-- Setup telescope
+local telescope = require('telescope')
+telescope.setup {
+    pickers = {
+        find_files = {
+            find_command = {
+                "rg",
+                "--files",
+                "--hidden",
+                "--ignore-file-case-insensitive",
+                "--glob",
+                "!.git/*",
+            }
+        }
+    }
+}
+-- Telescope bindings
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
