@@ -4,4 +4,7 @@ fzf.*
 _fzf_*
 # Ignore command from installed plugins
 fisher.fish
-humantime.fish
+
+/themes/
+/conf.d/
+/fish_variables
