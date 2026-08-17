@@ -53,6 +53,17 @@ local plugins = {
         'nvim-treesitter/nvim-treesitter',
         lazy = false,
         build = ':TSUpdate'
+    },
+    -- Neo-tree for tree view of filesystem
+    {
+      "nvim-neo-tree/neo-tree.nvim",
+      version = '*',
+      dependencies = {
+          "nvim-lua/plenary.nvim",
+          "MunifTanjim/nui.nvim",
+          "nvim-tree/nvim-web-devicons", -- optional, but recommended
+      },
+      lazy = false, -- neo-tree will lazily load itself
     }
 }
 local opts = {}
@@ -98,3 +109,14 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help ta
 
 -- Setup treesitter config
 require('nvim-treesitter').install { 'rust', 'python', 'lua' }
+
+-- Setup neo-tree config
+vim.keymap.set("n", "<leader>e", "<Cmd>Neotree<CR>")
+require('neo-tree').setup {
+    filesystem = {
+        filtered_items = {
+            visible = true,
+            hide_dotfiles = false
+        }
+    }
+}
