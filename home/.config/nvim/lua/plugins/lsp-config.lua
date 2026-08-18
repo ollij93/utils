@@ -3,9 +3,7 @@ return {
         "mason-org/mason-lspconfig.nvim",
         lazy=false,
         opts = {
-            auto_install = true,
-            --ensure_installed = { "lua_ls" },
-            --automatic_enable = false
+            ensure_installed = { "lua_ls" },
         },
         dependencies = {
             { "mason-org/mason.nvim", opts = {} },
