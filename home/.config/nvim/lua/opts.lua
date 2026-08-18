@@ -10,6 +10,11 @@ vim.cmd("set number")
 -- Set leader to SPACE
 vim.g.mapleader = " "
 
+-- Enable virtual text for inline warnings etc
+vim.diagnostic.config({
+    virtual_text = true
+})
+
 -- Setup some personal bindings
 vim.keymap.set('n', '<leader>ln', "<cmd>set invnumber<CR>", {
     desc = "Toggle line numbers",
