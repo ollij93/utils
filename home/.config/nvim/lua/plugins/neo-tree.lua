@@ -13,10 +13,13 @@ return {
             filtered_items = {
                 visible = true,
                 hide_dotfiles = false,
+                never_show = {
+                    ".git",
+                }
             }
         }
     },
-    init = function()
-        vim.keymap.set("n", "<leader>e", "<Cmd>Neotree<CR>")
-    end
+    keys = {
+        {"<leader>e", "<Cmd>Neotree<CR>", { desc = "Open Neotree" }},
+    }
 }
