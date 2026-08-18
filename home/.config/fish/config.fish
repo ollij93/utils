@@ -1,7 +1,7 @@
 if status is-interactive
     set --global fish_key_bindings fish_default_key_bindings
 
-    # Commands to run in interactive sessions can go here
+    fish_config theme choose "Dracula Official"
 
     # Disable the cheesy welcome message when opening the prompt
     set fish_greeting
