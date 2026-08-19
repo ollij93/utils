@@ -22,7 +22,7 @@ vim.keymap.set('n', '<leader>ln', "<cmd>set invnumber<CR>", {
 vim.keymap.set('n', '<leader>rn', "<cmd>set invrelativenumber<CR>", {
     desc = "Toggle relative line numbers",
 })
-vim.keymap.set("n", "<leader>c", function()
+vim.keymap.set("n", "<leader>c/", function()
     vim.cmd("nohlsearch")
     vim.fn.setreg("/", "")
 end, {
