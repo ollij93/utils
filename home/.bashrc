@@ -35,24 +35,7 @@ gitsu() {
 ###########
 # EXPORTS #
 ###########
-export RESET="\e[00m"
-export BOLD="\e[1m"
-
-# 255 Colors
-export ORANGE="\e[38;5;214m"
-export PURPLE="\e[38;5;128m"
-export GRAY="\e[38;5;250m"
-export CYAN="\e[38;5;6m"
-
-# Colours: Uncomment for non 256 terminals
-# export BLACK="\e[30m"
-# export RED="\e[31m"
-# export GREEN="\e[32m"
-# export YELLOW="\e[33m"
-# export BLUE="\e[34m"
-# export PURPLE="\e[35m"
-# export CYAN="\e[36m"
-# export WHITE="\e[37m"
+export PATH=~/bin:~/.local/bin:$PATH
 
 # Editor
 editor=nvim
