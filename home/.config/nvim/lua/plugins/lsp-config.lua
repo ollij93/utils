@@ -108,7 +108,7 @@ return {
 			end
 		end,
 		keys = {
-			{ "K", vim.lsp.buf.hover, desc = "Look-up documentation" },
+			{ "K", function() vim.lsp.buf.hover() end, desc = "Look-up documentation" },
 			{ "<leader>gd", vim.lsp.buf.definition, desc = "Go to definition" },
 			{ "<leader>gr", vim.lsp.buf.references, desc = "Go to references" },
 			{ "<leader>ca", vim.lsp.buf.code_action, desc = "Code actions" },
