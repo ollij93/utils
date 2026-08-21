@@ -8,10 +8,10 @@ if status is-interactive
 
     starship init fish | source
 
-    set -gx RUSTUP_HOME /nobackup/olijohns/.rustup
-    set -gx CARGO_HOME /nobackup/olijohns/.cargo
-
-    set -gx LD_LIBRARY_PATH /ws/olijohns-sjc/vectorscan/lib:/ws/olijohns-sjc/vectorscan/lib64
+    if [ -e /nobackup/$USER ]
+        set -gx RUSTUP_HOME /nobackup/olijohns/.rustup
+        set -gx CARGO_HOME /nobackup/olijohns/.cargo
+    end
 
     function refresh_vscode_ipc_hook
         set -l socket (command ls -1t '/run/user/*/vscode-ipc-*.sock' 2>/dev/null | head -n 1)
@@ -27,4 +27,3 @@ if status is-interactive
         refresh_vscode_ipc_hook
     end
 end
-
